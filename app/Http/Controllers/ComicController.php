@@ -21,7 +21,7 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        return view('guest.comics.create');
     }
 
     /**
@@ -29,7 +29,9 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $newComic = Comic::create($data);
+        return redirect()->route('guest.comics.show', $newComic->id);
     }
 
     /**
