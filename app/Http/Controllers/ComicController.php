@@ -29,7 +29,16 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $request->validate([
+            'title' => ['required', 'min:4', 'max:50'],
+            'description' => ['required', 'min:5', 'max:2000'],
+            'thumb' => ['required', 'url:http,https'],
+            'price' => ['required', 'min:1', 'max:50'],
+            'series' => ['required', 'min:4', 'max:50'],
+            'sale_date' => ['required', 'date'],
+            'type' => ['required', 'min:3', 'max:40'],
+        ]);
+
         $newComic = Comic::create($data);
         return redirect()->route('guest.comics.show', $newComic->id);
     }
@@ -48,15 +57,26 @@ class ComicController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $comic = Comic::findOrFail($id);
+        return view('guest.comics.edit', compact('comic'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Comic $comic)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'min:4', 'max:50'],
+            'description' => ['required', 'min:5', 'max:2000'],
+            'thumb' => ['required', 'url:http,https'],
+            'price' => ['required', 'min:1', 'max:50'],
+            'series' => ['required', 'min:4', 'max:50'],
+            'sale_date' => ['required', 'date'],
+            'type' => ['required', 'min:3', 'max:40'],
+        ]);
+        $comic->update($request->all());
+        return redirect()->route('guest.comics.show', $comic->id);
     }
 
     /**
