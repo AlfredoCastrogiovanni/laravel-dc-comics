@@ -6,4 +6,4 @@
 </p>
 
 # Content
-Creazione di un modello, con relativa migrazione, seeder e controller per la creazione delle due CRUD: index e show
+Creazione di un modello, con relativa migrazione, seeder e controller per la creazione delle CRUD e diverse validazioni per i form
